@@ -13,7 +13,9 @@ extern "C" {
 
 #include <stdint.h>
 
-#ifndef ngx_inline
+#ifdef NGX_TIMER_ALWAYS_INLINE
+#define ngx_inline inline __attribute__((always_inline))
+#else
 #define ngx_inline inline
 #endif
 

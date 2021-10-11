@@ -8,6 +8,7 @@ project(ngx-timer)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_definitions(-march=native)
+add_definitions(-DNGX_TIMER_ALWAYS_INLINE)
 
 option(ngxtimer_ALWAYS_INLINE "Enable always inline" ON)
 if (ngxtimer_ALWAYS_INLINE)
