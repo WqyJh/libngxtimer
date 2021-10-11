@@ -4,7 +4,6 @@
  * Copyright (C) Nginx, Inc.
  */
 
-#include <stddef.h>
 #include <ngx_rbtree.h>
 
 /*

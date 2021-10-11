@@ -1,6 +1,4 @@
-#include "ngx_rbtree.h"
 #include <ngx_timer.h>
-#include <rte_cycles.h>
 
 // 初始化
 ngx_inline int ngx_timer_init(ngx_timer_t *timer) {

@@ -11,6 +11,7 @@
 extern "C" {
 #endif
 
+#include <stddef.h>
 #include <stdint.h>
 
 #ifdef NGX_TIMER_ALWAYS_INLINE
