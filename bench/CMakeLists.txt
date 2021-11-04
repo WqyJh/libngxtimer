@@ -6,6 +6,8 @@
 # apt install libbenchmark-dev
 find_package(benchmark REQUIRED)
 
+set(CMAKE_BUILD_TYPE "Debug")
+
 add_executable(ngxtimer_bench
     ngxtimer_bench.cc)
 
