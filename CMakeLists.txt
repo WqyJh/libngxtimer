@@ -10,9 +10,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_definitions(-march=native)
 add_definitions(-DNGX_TIMER_ALWAYS_INLINE)
 
-option(ngxtimer_ALWAYS_INLINE "Enable always inline" ON)
-if (ngxtimer_ALWAYS_INLINE)
-    add_definitions(-Dngxtimer_ALWAYS_INLINE)
+option(NGX_TIMER_ALWAYS_INLINE "Enable always inline" ON)
+if (NGX_TIMER_ALWAYS_INLINE)
+    message(STATUS "NGX_TIMER_ALWAYS_INLINE enabled")
+    add_definitions(-DNGX_TIMER_ALWAYS_INLINE)
 endif()
 
 if (NOT CMAKE_BUILD_TYPE)
