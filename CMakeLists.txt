@@ -30,7 +30,6 @@ set(PUBLIC_HEADERS
 
 include_directories(${PROJECT_SOURCE_DIR})
 set(SRCS
-    ngx_rbtree.c
     ngx_timer.c
 )
 

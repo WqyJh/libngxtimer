@@ -4,11 +4,13 @@
 
 #include <ngx_timer.h>
 
+// #define ITERATIONS 1000000
+
 static void BM_timer_add_sametime(benchmark::State& state) {
     ngx_timer_t timer;
     int rc = ngx_timer_init(&timer);
 
-    int n = state.range(0);
+    const int n = state.range(0);
 
     ngx_timer_entry_t *entries = new ngx_timer_entry_t[n];
     for (int i = 0; i < n; i++) {
@@ -95,6 +97,10 @@ static void BM_timer_del(benchmark::State& state) {
     state.SetItemsProcessed(items);
     delete[] entries;
 }
+
+// BENCHMARK(BM_timer_add_sametime)->Arg(ITERATIONS);
+// BENCHMARK(BM_timer_add_difftime)->Arg(ITERATIONS);
+// BENCHMARK(BM_timer_del)->Arg(ITERATIONS);
 
 BENCHMARK(BM_timer_add_sametime)->RangeMultiplier(1<<2)->Range(1<<10, 1<<20);
 BENCHMARK(BM_timer_add_difftime)->RangeMultiplier(1<<2)->Range(1<<10, 1<<20);
