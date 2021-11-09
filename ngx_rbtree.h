@@ -23,7 +23,7 @@ typedef unsigned char u_char;
 
 typedef struct ngx_rbtree_node_s ngx_rbtree_node_t;
 
-struct ngx_rbtree_node_s {
+struct __attribute__((__packed__)) ngx_rbtree_node_s {
     ngx_rbtree_key_t key;
     ngx_rbtree_node_t *left;
     ngx_rbtree_node_t *right;
@@ -38,7 +38,7 @@ typedef void (*ngx_rbtree_insert_pt)(ngx_rbtree_node_t *root,
                                      ngx_rbtree_node_t *node,
                                      ngx_rbtree_node_t *sentinel);
 
-struct ngx_rbtree_s {
+struct __attribute__((__packed__)) ngx_rbtree_s {
     ngx_rbtree_node_t *root;
     ngx_rbtree_node_t *sentinel;
     ngx_rbtree_insert_pt insert;
