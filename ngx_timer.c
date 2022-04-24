@@ -40,3 +40,24 @@ ngx_inline void ngx_timer_tick(ngx_timer_t *timer, uint64_t now, void *ctx) {
         // free(te);
     }
 }
+
+void ngx_timer_tick_limit(ngx_timer_t *timer, uint64_t now, void *ctx, int limit) {
+    ngx_timer_entry_t *te;
+    ngx_rbtree_node_t *node, *root, *sentinel;
+    sentinel = timer->rbtree.sentinel;
+
+    for (;limit--;) {
+        root = timer->rbtree.root;
+        if (root == sentinel) {
+            return;
+        }
+        node = ngx_rbtree_min(root, sentinel);
+        if ((ngx_rbtree_key_int_t)(node->key - now) > 0) {
+            return;
+        }
+        te = ngx_rbtree_data(node, ngx_timer_entry_t, timer);
+        ngx_rbtree_delete(&timer->rbtree, &te->timer);
+        te->handler(te, ctx);
+        // free(te);
+    }
+}

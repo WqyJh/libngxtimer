@@ -33,6 +33,8 @@ void ngx_timer_cancel(ngx_timer_t *timer, ngx_timer_entry_t *te);
 // 执行到期任务
 void ngx_timer_tick(ngx_timer_t *timer, uint64_t now, void *ctx);
 
+void ngx_timer_tick_limit(ngx_timer_t *timer, uint64_t now, void *ctx, int limit);
+
 #ifdef __cplusplus
 }
 #endif
