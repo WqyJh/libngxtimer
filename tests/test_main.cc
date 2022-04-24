@@ -14,12 +14,11 @@ void test_expire_handler1(ngx_timer_entry_t *ev, void *ctx) {
 
 TEST(timer, test_expire) {
     ngx_timer_t timer;
-    int rc = ngx_timer_init(&timer);
+    int rc = ngx_timer_init(&timer, test_expire_handler1);
     EXPECT_EQ(rc, 0);
 
     ngx_timer_entry_t te = {
         .timer = {0},
-        .handler = test_expire_handler1,
         .data = (void *)1L,
     };
     ngx_timer_add(&timer, &te, 100L);
@@ -43,12 +42,11 @@ TEST(timer, test_expire) {
 
 TEST(timer, test_cancel) {
     ngx_timer_t timer;
-    int rc = ngx_timer_init(&timer);
+    int rc = ngx_timer_init(&timer, test_expire_handler1);
     EXPECT_EQ(rc, 0);
 
     ngx_timer_entry_t te = {
         .timer = {0},
-        .handler = test_expire_handler1,
         .data = (void *)1L,
     };
     ngx_timer_add(&timer, &te, 100L);
@@ -80,12 +78,11 @@ void test_handler2(ngx_timer_entry_t *ev, void *ctx) {
 
 TEST(timer, test_ctx) {
     ngx_timer_t timer;
-    int rc = ngx_timer_init(&timer);
+    int rc = ngx_timer_init(&timer, test_handler2);
     EXPECT_EQ(rc, 0);
 
     ngx_timer_entry_t te = {
         .timer = {0},
-        .handler = test_handler2,
         .data = (void *)1L,
     };
     ngx_timer_add(&timer, &te, 100L);

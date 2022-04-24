@@ -11,7 +11,7 @@
 
 static void BM_timer_add_sametime(benchmark::State& state) {
     ngx_timer_t timer;
-    int rc = ngx_timer_init(&timer);
+    int rc = ngx_timer_init(&timer, NULL);
 
     const int n = state.range(0);
 
@@ -19,7 +19,6 @@ static void BM_timer_add_sametime(benchmark::State& state) {
     for (int i = 0; i < n; i++) {
         ngx_timer_entry_t *te = &entries[i];
         te->timer = {0};
-        te->handler = NULL,
         te->data = (void *)(uint64_t)i;
     }
     int items = 0;
@@ -41,7 +40,7 @@ static void BM_timer_add_sametime(benchmark::State& state) {
 
 static void BM_timer_add_difftime(benchmark::State& state) {
     ngx_timer_t timer;
-    int rc = ngx_timer_init(&timer);
+    int rc = ngx_timer_init(&timer, NULL);
 
     int n = state.range(0);
 
@@ -49,7 +48,6 @@ static void BM_timer_add_difftime(benchmark::State& state) {
     for (int i = 0; i < n; i++) {
         ngx_timer_entry_t *te = &entries[i];
         te->timer = {0};
-        te->handler = NULL,
         te->data = (void *)(uint64_t)i;
     }
     int items = 0;
@@ -71,7 +69,7 @@ static void BM_timer_add_difftime(benchmark::State& state) {
 
 static void BM_timer_del(benchmark::State& state) {
     ngx_timer_t timer;
-    int rc = ngx_timer_init(&timer);
+    int rc = ngx_timer_init(&timer, NULL);
 
     int n = state.range(0);
 
@@ -79,7 +77,6 @@ static void BM_timer_del(benchmark::State& state) {
     for (int i = 0; i < n; i++) {
         ngx_timer_entry_t *te = &entries[i];
         te->timer = {0};
-        te->handler = NULL,
         te->data = (void *)(uint64_t)i;
     }
 
@@ -107,7 +104,7 @@ void expire_handler(ngx_timer_entry_t *ev, void *ctx) {
 
 static void BM_timer_expire(benchmark::State& state) {
     ngx_timer_t timer;
-    int rc = ngx_timer_init(&timer);
+    int rc = ngx_timer_init(&timer, expire_handler);
 
     int n = state.range(0);
 
@@ -115,7 +112,6 @@ static void BM_timer_expire(benchmark::State& state) {
     for (int i = 0; i < n; i++) {
         ngx_timer_entry_t *te = &entries[i];
         te->timer = {0};
-        te->handler = expire_handler,
         te->data = te;
     }
 
